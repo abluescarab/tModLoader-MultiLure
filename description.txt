@@ -10,4 +10,7 @@
 * HERO for HERO's Mod
 
 [Changelog]
-v1.0.0  2016-08-09
+2016-08-13  v1.0.1
+* Now displays message when lure count is changed with hotkeys
+
+2016-08-09  v1.0.0
