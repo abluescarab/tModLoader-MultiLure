@@ -51,13 +51,13 @@ namespace MultiLure {
         private void SetupCheatSheetIntegration(Mod cheatSheet) {
             cheatSheet.Call("AddButton_Test",
                     this.GetTexture("Textures/AddLure"),
-                    (Action)this.AddLure,
-                    (Func<string>)this.AddLureTooltip);
+                    (Action)AddLureAction,
+                    (Func<string>)AddLureTooltip);
 
             cheatSheet.Call("AddButton_Test",
                 this.GetTexture("Textures/RemoveLure"),
-                (Action)this.RemoveLure,
-                (Func<string>)this.RemoveLureTooltip);
+                (Action)RemoveLureAction,
+                (Func<string>)RemoveLureTooltip);
         }
 
         private void SetupHerosModIntegration(Mod herosMod) {
@@ -71,7 +71,7 @@ namespace MultiLure {
                     "AddSimpleButton",
                     PERMISSION_NAME,
                     GetTexture("Textures/AddLure"),
-                    (Action)AddLure,
+                    (Action)AddLureAction,
                     (Action<bool>)PermissionsChanged,
                     (Func<string>)AddLureTooltip);
 
@@ -79,7 +79,7 @@ namespace MultiLure {
                     "AddSimpleButton",
                     PERMISSION_NAME,
                     GetTexture("Textures/RemoveLure"),
-                    (Action)RemoveLure,
+                    (Action)RemoveLureAction,
                     (Action<bool>)PermissionsChanged,
                     (Func<string>)RemoveLureTooltip);
             }
@@ -87,24 +87,52 @@ namespace MultiLure {
 
         public void PermissionsChanged(bool hasPermission) {
             if(!hasPermission) {
-                Main.player[Main.myPlayer].GetModPlayer<MPlayer>(this).LureCount = 1;
+                GetModPlayer().LureCount = 1;
             }
         }
 
-        public string AddLureTooltip() {
-            return "Add Lure (Current: " + Main.player[Main.myPlayer].GetModPlayer<MPlayer>(this).LureCount.ToString() + ")";
-        }
-
         public void AddLure() {
-            Main.player[Main.myPlayer].GetModPlayer<MPlayer>(this).LureCount++;
+            MPlayer player = GetModPlayer();
+
+            if(player.LureCount < MAX_LURES) {
+                AddLureAction();
+                Main.NewText("Lures increased to " + player.LureCount.ToString() + ".");
+            }
+            else {
+                Main.NewText("You already have the maximum number of lures (" + MAX_LURES + ").");
+            }
         }
 
-        public string RemoveLureTooltip() {
-            return "Remove Lure (Current: " + Main.player[Main.myPlayer].GetModPlayer<MPlayer>(this).LureCount.ToString() + ")";
+        private void AddLureAction() {
+            GetModPlayer().LureCount++;
+        }
+
+        private string AddLureTooltip() {
+            return "Add Lure (Current: " + GetModPlayer().LureCount.ToString() + ")";
         }
 
         public void RemoveLure() {
-            Main.player[Main.myPlayer].GetModPlayer<MPlayer>(this).LureCount--;
+            MPlayer player = GetModPlayer();
+
+            if(player.LureCount > 1) {
+                RemoveLureAction();
+                Main.NewText("Lures decreased to " + player.LureCount.ToString() + ".");
+            }
+            else {
+                Main.NewText("You already have the minimum number of lures (1).");
+            }
+        }
+
+        private void RemoveLureAction() {
+            GetModPlayer().LureCount--;
+        }
+
+        private string RemoveLureTooltip() {
+            return "Remove Lure (Current: " + GetModPlayer().LureCount.ToString() + ")";
+        }
+
+        private MPlayer GetModPlayer() {
+            return Main.player[Main.myPlayer].GetModPlayer<MPlayer>(this);
         }
     }
 }
