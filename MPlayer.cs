@@ -3,9 +3,11 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.IO;
+using Terraria.ModLoader.IO;
 
 namespace MultiLure {
     public class MPlayer : ModPlayer {
+        private const string LURE_COUNT = "lurecount";
         private byte lureCount = 1;
 
         public byte LureCount {
@@ -27,11 +29,17 @@ namespace MultiLure {
             return true; 
         }
 
-        public override void SaveCustomData(BinaryWriter writer) {
-            writer.Write(lureCount);
+        public override TagCompound Save() {
+            return new TagCompound {
+                { LURE_COUNT, lureCount }
+            };
         }
 
-        public override void LoadCustomData(BinaryReader reader) {
+        public override void Load(TagCompound tag) {
+            lureCount = tag.GetByte(LURE_COUNT);
+        }
+
+        public override void LoadLegacy(BinaryReader reader) {
             try {
                 lureCount = reader.ReadByte();
             }
