@@ -6,7 +6,7 @@ using System.IO;
 using Terraria.ModLoader.IO;
 
 namespace MultiLure {
-    public class MPlayer : ModPlayer {
+    public class MultiLurePlayer : ModPlayer {
         private const string LURE_COUNT = "lurecount";
         private byte lureCount = 1;
 

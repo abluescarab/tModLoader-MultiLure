@@ -10,7 +10,7 @@ namespace MultiLure {
 
         public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
             if(item.fishingPole > 0) {
-                byte lures = player.GetModPlayer<MPlayer>(mod).LureCount;
+                byte lures = player.GetModPlayer<MultiLurePlayer>(mod).LureCount;
 
                 for(int i = 0; i < lures; i++) {
                     Projectile.NewProjectile(position.X + Main.rand.Next(5), position.Y + Main.rand.Next(5), speedX + Main.rand.Next(5), speedY + Main.rand.Next(5), type, damage, knockBack, player.whoAmI);

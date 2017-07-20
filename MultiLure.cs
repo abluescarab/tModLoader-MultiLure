@@ -90,7 +90,7 @@ namespace MultiLure {
         }
 
         public void AddLure() {
-            MPlayer player = GetModPlayer();
+            MultiLurePlayer player = GetModPlayer();
 
             if(player.LureCount < MAX_LURES) {
                 AddLureAction();
@@ -110,7 +110,7 @@ namespace MultiLure {
         }
 
         public void RemoveLure() {
-            MPlayer player = GetModPlayer();
+            MultiLurePlayer player = GetModPlayer();
 
             if(player.LureCount > 1) {
                 RemoveLureAction();
@@ -129,8 +129,8 @@ namespace MultiLure {
             return "Remove Lure (Current: " + GetModPlayer().LureCount.ToString() + ")";
         }
 
-        private MPlayer GetModPlayer() {
-            return Main.player[Main.myPlayer].GetModPlayer<MPlayer>(this);
+        private MultiLurePlayer GetModPlayer() {
+            return Main.player[Main.myPlayer].GetModPlayer<MultiLurePlayer>(this);
         }
     }
 }

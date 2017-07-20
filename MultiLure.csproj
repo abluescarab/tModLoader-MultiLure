@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="GlobalFishingPoleItem.cs" />
     <Compile Include="MultiLure.cs" />
-    <Compile Include="MPlayer.cs" />
+    <Compile Include="MultiLurePlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
