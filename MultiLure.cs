@@ -9,10 +9,10 @@ namespace MultiLure {
         internal const string PERMISSION_NAME = "ModifyLureCount";
         internal const string PERMISSION_DISPLAY_NAME = "Modify Lure Count";
         public const int MAX_LURES = 20;
-        
-        private HotKey addLureKey = new HotKey("Add Lure", Keys.OemOpenBrackets);
-        private HotKey removeLureKey = new HotKey("Remove Lure", Keys.OemCloseBrackets);
 
+        private ModHotKey addLureKey;
+        private ModHotKey removeLureKey;
+        
         public override void Load() {
             Properties = new ModProperties() {
                 Autoload = true
@@ -20,18 +20,16 @@ namespace MultiLure {
 
             AddGlobalItem("MultiLureFishingPole", new GlobalFishingPoleItem());
 
-            RegisterHotKey(addLureKey.Name, addLureKey.DefaultKey.ToString());
-            RegisterHotKey(removeLureKey.Name, removeLureKey.DefaultKey.ToString());
+            addLureKey = RegisterHotKey("Add Lure", Keys.OemOpenBrackets.ToString());
+            removeLureKey = RegisterHotKey("Remove Lure", Keys.OemCloseBrackets.ToString());
         }
 
         public override void HotKeyPressed(string name) {
-            if(HotKey.JustPressed(this, name)) {
-                if(name.Equals(addLureKey.Name)) {
-                    AddLure();
-                }
-                else if(name.Equals(removeLureKey.Name)) {
-                    RemoveLure();
-                }
+            if(addLureKey.JustPressed) {
+                AddLure();
+            }
+            else if(removeLureKey.JustPressed) {
+                RemoveLure();
             }
         }
 
