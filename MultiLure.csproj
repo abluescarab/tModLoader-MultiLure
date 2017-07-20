@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalFishingPoleItem.cs" />
+    <Compile Include="GlobalQuestItem.cs" />
     <Compile Include="MultiLure.cs" />
     <Compile Include="MultiLurePlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
