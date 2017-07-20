@@ -3,6 +3,7 @@
 * Includes Cheat Sheet and HERO's Mod integration (hotkeys work with or without integration)
 * Press [ to remove a lure
 * Press ] to add a lure
+* Hold shift to add/remove 10 lures (works with both hotkeys and Cheat Sheet/HERO's Mod)
 
 [Credits]
 * Nomad000 for the suggestion in the Terraria Forums
@@ -11,6 +12,10 @@
 * VVV101 for releasing updated version
 
 [Changelog]
+v2.0.0  2017-07-19
+* Increased maximum lures to 100
+* Added ability to press shift to add/remove 10 lures
+
 v1.0.5  2017-07-09
 * Updated credits
 * Fixed version
