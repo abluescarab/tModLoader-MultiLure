@@ -14,6 +14,10 @@ Note: if a quest fish is in your inventory when you cast, you still can't catch 
 * VVV101 for releasing updated version
 
 [Changelog]
+v2.2.0  2019-04-15
+* Hold down hotkeys to speed up
+* Fix: swapped default hotkeys
+
 v2.1.1  2017-11-06
 * Compiled for tModLoader v0.10.1
 
