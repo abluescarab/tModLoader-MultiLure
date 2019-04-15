@@ -25,8 +25,8 @@ namespace MultiLure {
             AddGlobalItem("MultiLureFishingPole", new GlobalFishingPoleItem());
             AddGlobalItem("MultiLureQuestItem", new GlobalQuestItem());
 
-            addLureKey = RegisterHotKey("Add Lure", Keys.OemOpenBrackets.ToString());
-            removeLureKey = RegisterHotKey("Remove Lure", Keys.OemCloseBrackets.ToString());
+            addLureKey = RegisterHotKey("Add Lure", Keys.OemCloseBrackets.ToString());
+            removeLureKey = RegisterHotKey("Remove Lure", Keys.OemOpenBrackets.ToString());
         }
 
         public override void HotKeyPressed(string name) {
