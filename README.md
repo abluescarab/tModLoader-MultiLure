@@ -11,3 +11,4 @@ MultiLure is a mod that adds a configurable number of lures while fishing and al
 * Nomad000 for the suggestion in the Terraria Forums
 * jopojelly for Cheat Sheet
 * HERO for HERO's Mod
+* VVV101 for releasing updated version
