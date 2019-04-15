@@ -18,6 +18,7 @@ namespace MultiLure {
             };
 
             AddGlobalItem("MultiLureFishingPole", new GlobalFishingPoleItem());
+            AddGlobalItem("MultiLureQuestItem", new GlobalQuestItem());
 
             addLureKey = RegisterHotKey("Add Lure", Keys.OemOpenBrackets.ToString());
             removeLureKey = RegisterHotKey("Remove Lure", Keys.OemCloseBrackets.ToString());
