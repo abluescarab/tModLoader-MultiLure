@@ -12,6 +12,11 @@ namespace MultiLure {
         private ModHotKey addLureKey;
         private ModHotKey removeLureKey;
 
+        private bool lureKeyPressed = false;
+        private double lureKeyPressTime = 0.0;
+        private int lureKeySpeedMultipler = 1;
+        private double lureKeyIncreaseTime = 0.0;
+
         public override void Load() {
             Properties = new ModProperties() {
                 Autoload = true
@@ -26,10 +31,42 @@ namespace MultiLure {
 
         public override void HotKeyPressed(string name) {
             if(addLureKey.JustPressed) {
-                AddLure(true);
+                ChangeLures(true);
+                lureKeyPressed = true;
+                lureKeyPressTime = Main._drawInterfaceGameTime.TotalGameTime.TotalMilliseconds;
             }
             else if(removeLureKey.JustPressed) {
-                RemoveLure(true);
+                ChangeLures(false);
+                lureKeyPressed = true;
+                lureKeyPressTime = Main._drawInterfaceGameTime.TotalGameTime.TotalMilliseconds;
+            }
+        }
+
+        public override void PostUpdateInput() {
+            if(!lureKeyPressed) return;
+
+            double time = Main._drawInterfaceGameTime.TotalGameTime.TotalMilliseconds;
+
+            if(!addLureKey.Current && !removeLureKey.Current) {
+                lureKeyPressed = false;
+                lureKeySpeedMultipler = 1;
+                return;
+            }
+
+            if(time - lureKeyIncreaseTime >= 1000.0 & (lureKeySpeedMultipler < 32)) {
+                lureKeySpeedMultipler *= 2;
+                lureKeyIncreaseTime = time;
+            }
+
+            if(time - lureKeyPressTime >= 1000.0 / lureKeySpeedMultipler) {
+                if(addLureKey.Current) {
+                    ChangeLures(true);
+                }
+                else if(removeLureKey.Current) {
+                    ChangeLures(false);
+                }
+
+                lureKeyPressTime = time;
             }
         }
 
@@ -49,12 +86,12 @@ namespace MultiLure {
         private void SetupCheatSheetIntegration(Mod cheatSheet) {
             cheatSheet.Call("AddButton_Test",
                     this.GetTexture("Textures/AddLure"),
-                    (Action)delegate { AddLure(); },
+                    (Action)delegate { ChangeLures(true); },
                     (Func<string>)AddLureTooltip);
 
             cheatSheet.Call("AddButton_Test",
                 this.GetTexture("Textures/RemoveLure"),
-                (Action)delegate { RemoveLure(); },
+                (Action)delegate { ChangeLures(false); },
                 (Func<string>)RemoveLureTooltip);
         }
 
@@ -69,7 +106,7 @@ namespace MultiLure {
                     "AddSimpleButton",
                     PERMISSION_NAME,
                     GetTexture("Textures/AddLure"),
-                    (Action)delegate { AddLure(); },
+                    (Action)delegate { ChangeLures(true); },
                     (Action<bool>)PermissionsChanged,
                     (Func<string>)AddLureTooltip);
 
@@ -77,7 +114,7 @@ namespace MultiLure {
                     "AddSimpleButton",
                     PERMISSION_NAME,
                     GetTexture("Textures/RemoveLure"),
-                    (Action)delegate { RemoveLure(); },
+                    (Action)delegate { ChangeLures(false); },
                     (Action<bool>)PermissionsChanged,
                     (Func<string>)RemoveLureTooltip);
             }
@@ -89,68 +126,51 @@ namespace MultiLure {
             }
         }
 
-        public void AddLure(bool showMessages = false) {
+        public void ChangeLures(bool increase) {
             MultiLurePlayer player = GetModPlayer();
             bool success = true;
+            int count = (increase ? 1 : -1);
+            int newCount = 0;
 
             if(Main.keyState.PressingShift()) {
-                if((player.LureCount + 10) <= MAX_LURES) {
-                    player.LureCount += 10;
+                count = (increase ? 10 : -10);
+            }
+
+            if((!increase && player.LureCount == 1) ||
+               (increase && player.LureCount == MAX_LURES)) {
+                success = false;
+            }
+            else {
+                newCount = player.LureCount + count;
+
+                if(newCount >= 1 && newCount <= MAX_LURES) {
+                    player.LureCount += count;
                 }
-                else if(player.LureCount < MAX_LURES) {
+                else if(newCount < 1) {
+                    player.LureCount = 1;
+                }
+                else if(newCount > MAX_LURES) {
                     player.LureCount = MAX_LURES;
                 }
                 else {
                     success = false;
                 }
             }
-            else if(player.LureCount < MAX_LURES) {
-                player.LureCount++;
+
+            if(success) {
+                Main.NewText("Lures " + (increase ? "increased" : "decreased") + " to " + player.LureCount + ".");
             }
             else {
-                success = false;
-            }
-
-            if(showMessages) {
-                if(success)
-                    Main.NewText("Lures increased to " + player.LureCount + ".");
-                else
-                    Main.NewText("You already have the maximum number of lures (" + MAX_LURES + ").");
+                bool min = player.LureCount == 1;
+                Main.NewText($"You already have the {(min ? "minimum" : "maximum")} numbers of lures " +
+                             $"({(min ? 1 : MAX_LURES)}).");
+                lureKeyPressed = false;
+                lureKeySpeedMultipler = 1;
             }
         }
-        
+
         private string AddLureTooltip() {
             return "Add Lure (Current: " + GetModPlayer().LureCount + ")";
-        }
-
-        public void RemoveLure(bool showMessages = false) {
-            MultiLurePlayer player = GetModPlayer();
-            bool success = true;
-
-            if(Main.keyState.PressingShift()) {
-                if((player.LureCount - 10) >= 1) {
-                    player.LureCount -= 10;
-                }
-                else if(player.LureCount > 1) {
-                    player.LureCount = 1;
-                }
-                else {
-                    success = false;
-                }
-            }
-            else if(player.LureCount > 1) {
-                player.LureCount--;
-            }
-            else {
-                success = false;
-            }
-
-            if(showMessages) {
-                if(success)
-                    Main.NewText("Lures decreased to " + player.LureCount + ".");
-                else
-                    Main.NewText("You already have the minimum number of lures (1).");
-            }
         }
 
         private string RemoveLureTooltip() {
