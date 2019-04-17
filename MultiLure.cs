@@ -165,8 +165,8 @@ namespace MultiLure {
             return "Remove Lure (Current: " + GetModPlayer().LureCount.ToString() + ")";
         }
 
-        private MultiLurePlayer GetModPlayer() {
-            return Main.LocalPlayer.GetModPlayer<MultiLurePlayer>(this);
+        private static MultiLurePlayer GetModPlayer() {
+            return Main.LocalPlayer.GetModPlayer<MultiLurePlayer>();
         }
     }
 }
