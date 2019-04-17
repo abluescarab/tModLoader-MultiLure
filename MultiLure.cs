@@ -8,7 +8,7 @@ namespace MultiLure {
     public class MultiLure : Mod {
         internal const string PermissionName = "ModifyLureCount";
         internal const string PermissionDisplayName = "Modify Lure Count";
-        public const int MaxLures = 100;
+        internal const int MaxLures = 100;
 
         private RepeatHotKey addLureKey;
         private RepeatHotKey removeLureKey;
