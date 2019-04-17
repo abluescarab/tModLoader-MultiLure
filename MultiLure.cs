@@ -8,7 +8,6 @@ namespace MultiLure {
     public class MultiLure : Mod {
         internal const string PermissionName = "ModifyLureCount";
         internal const string PermissionDisplayName = "Modify Lure Count";
-        internal const int MaxLures = 100;
 
         private RepeatHotKey addLureKey;
         private RepeatHotKey removeLureKey;
@@ -108,28 +107,30 @@ namespace MultiLure {
 
         public void ChangeLures(bool increase) {
             MultiLurePlayer player = GetModPlayer();
+            int maxLures = player.LureMaximum;
+
             bool success = true;
             int count = (increase ? 1 : -1);
-            
+
             if(Main.keyState.PressingShift()) {
                 count = (increase ? 10 : -10);
             }
 
             if((!increase && player.LureCount == 1) ||
-               (increase && player.LureCount == MAX_LURES)) {
+               (increase && player.LureCount == maxLures)) {
                 success = false;
             }
             else {
                 int newCount = player.LureCount + count;
 
-                if(newCount >= 1 && newCount <= MAX_LURES) {
+                if(newCount >= 1 && newCount <= maxLures) {
                     player.LureCount += count;
                 }
                 else if(newCount < 1) {
                     player.LureCount = 1;
                 }
-                else if(newCount > MAX_LURES) {
-                    player.LureCount = MAX_LURES;
+                else if(newCount > maxLures) {
+                    player.LureCount = maxLures;
                 }
                 else {
                     success = false;
@@ -142,7 +143,7 @@ namespace MultiLure {
             else {
                 bool min = player.LureCount == 1;
                 Main.NewText($"You already have the {(min ? "minimum" : "maximum")} numbers of lures " +
-                             $"({(min ? 1 : MAX_LURES)}).");
+                             $"({(min ? 1 : maxLures)}).");
 
                 if(min) removeLureKey.Stop();
                 else addLureKey.Stop();
