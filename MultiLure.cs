@@ -6,9 +6,9 @@ using Terraria.ModLoader;
 
 namespace MultiLure {
     public class MultiLure : Mod {
-        internal const string PERMISSION_NAME = "ModifyLureCount";
-        internal const string PERMISSION_DISPLAY_NAME = "Modify Lure Count";
-        public const int MAX_LURES = 100;
+        internal const string PermissionName = "ModifyLureCount";
+        internal const string PermissionDisplayName = "Modify Lure Count";
+        public const int MaxLures = 100;
 
         private RepeatHotKey addLureKey;
         private RepeatHotKey removeLureKey;
