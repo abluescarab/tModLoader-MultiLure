@@ -1,13 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using ModConfiguration;
 using Terraria;
+using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MultiLure {
     public class MultiLure : Mod {
         internal const string PermissionName = "ModifyLureCount";
         internal const string PermissionDisplayName = "Modify Lure Count";
+        internal const string EnableHotKeys = "enableHotKeys";
+        internal const string AddToCheatSheet = "addToCheatSheet";
+        internal const string AddToHerosMod = "addToHEROsMod";
+
+        internal static readonly ModConfig Config = new ModConfig("MultiLure");
 
         private RepeatHotKey addLureKey;
         private RepeatHotKey removeLureKey;
@@ -20,8 +29,15 @@ namespace MultiLure {
             AddGlobalItem("MultiLureFishingPole", new GlobalFishingPoleItem());
             AddGlobalItem("MultiLureQuestItem", new GlobalQuestItem());
 
-            addLureKey = new RepeatHotKey(this, "Add Lure", Keys.OemCloseBrackets.ToString());
-            removeLureKey = new RepeatHotKey(this, "Remove Lure", Keys.OemOpenBrackets.ToString());
+            Config.Add(EnableHotKeys, true);
+            Config.Add(AddToCheatSheet, true);
+            Config.Add(AddToHerosMod, true);
+            Config.Load();
+
+            if(Config.Get<bool>(EnableHotKeys)) {
+                addLureKey = new RepeatHotKey(this, "Add Lure", Keys.OemCloseBrackets.ToString());
+                removeLureKey = new RepeatHotKey(this, "Remove Lure", Keys.OemOpenBrackets.ToString());
+            }
         }
 
         public override void HotKeyPressed(string name) {
@@ -50,52 +66,43 @@ namespace MultiLure {
         }
 
         public override void PostSetupContent() {
-            Mod cheatSheet = ModLoader.GetMod("CheatSheet");
-            Mod herosMod = ModLoader.GetMod("HEROsMod");
+            Func<string> addTooltip = () => $"Add Lure (Current: {GetModPlayer().LureCount})";
+            Func<string> removeTooltip = () => $"Remove Lure (Current: {GetModPlayer().LureCount})";
 
-            if(cheatSheet != null && !Main.dedServ) {
-                SetupCheatSheetIntegration(cheatSheet);
+            if(Config.Get<bool>(AddToCheatSheet)) {
+                Mod cheatSheet = ModLoader.GetMod("CheatSheet");
+
+                if(cheatSheet != null && !Main.dedServ) {
+                    cheatSheet.Call("AddButton_Test",
+                                    GetTexture("Textures/AddLure"),
+                                    (Action)delegate { ChangeLures(true); },
+                                    addTooltip);
+
+                    cheatSheet.Call("AddButton_Test",
+                                    GetTexture("Textures/RemoveLure"),
+                                    (Action)delegate { ChangeLures(false); },
+                                    removeTooltip);
+                }
             }
 
-            if(herosMod != null) {
-                SetupHerosModIntegration(herosMod);
-            }
-        }
+            if(Config.Get<bool>(AddToHerosMod)) {
+                Mod herosMod = ModLoader.GetMod("HEROsMod");
 
-        private void SetupCheatSheetIntegration(Mod cheatSheet) {
-            cheatSheet.Call("AddButton_Test",
-                    this.GetTexture("Textures/AddLure"),
-                    (Action)delegate { ChangeLures(true); },
-                    (Func<string>)AddLureTooltip);
+                if(herosMod != null) {
+                    herosMod.Call("AddPermission", PermissionName, PermissionDisplayName);
 
-            cheatSheet.Call("AddButton_Test",
-                this.GetTexture("Textures/RemoveLure"),
-                (Action)delegate { ChangeLures(false); },
-                (Func<string>)RemoveLureTooltip);
-        }
+                    if(!Main.dedServ) {
+                        herosMod.Call("AddSimpleButton", PermissionName, GetTexture("Textures/AddLure"),
+                                      (Action)delegate { ChangeLures(true); },
+                                      (Action<bool>)PermissionsChanged,
+                                      addTooltip);
 
-        private void SetupHerosModIntegration(Mod herosMod) {
-            herosMod.Call(
-                "AddPermission",
-                PERMISSION_NAME,
-                PERMISSION_DISPLAY_NAME);
-
-            if(!Main.dedServ) {
-                herosMod.Call(
-                    "AddSimpleButton",
-                    PERMISSION_NAME,
-                    GetTexture("Textures/AddLure"),
-                    (Action)delegate { ChangeLures(true); },
-                    (Action<bool>)PermissionsChanged,
-                    (Func<string>)AddLureTooltip);
-
-                herosMod.Call(
-                    "AddSimpleButton",
-                    PERMISSION_NAME,
-                    GetTexture("Textures/RemoveLure"),
-                    (Action)delegate { ChangeLures(false); },
-                    (Action<bool>)PermissionsChanged,
-                    (Func<string>)RemoveLureTooltip);
+                        herosMod.Call("AddSimpleButton", PermissionName, GetTexture("Textures/RemoveLure"),
+                                      (Action)delegate { ChangeLures(false); },
+                                      (Action<bool>)PermissionsChanged,
+                                      removeTooltip);
+                    }
+                }
             }
         }
 
