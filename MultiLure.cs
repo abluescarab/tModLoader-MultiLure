@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Terraria;
 using Terraria.ModLoader;
@@ -9,13 +10,8 @@ namespace MultiLure {
         internal const string PERMISSION_DISPLAY_NAME = "Modify Lure Count";
         public const int MAX_LURES = 100;
 
-        private ModHotKey addLureKey;
-        private ModHotKey removeLureKey;
-
-        private bool lureKeyPressed = false;
-        private double lureKeyPressTime = 0.0;
-        private int lureKeySpeedMultipler = 1;
-        private double lureKeyIncreaseTime = 0.0;
+        private RepeatHotKey addLureKey;
+        private RepeatHotKey removeLureKey;
 
         public override void Load() {
             Properties = new ModProperties() {
@@ -25,48 +21,32 @@ namespace MultiLure {
             AddGlobalItem("MultiLureFishingPole", new GlobalFishingPoleItem());
             AddGlobalItem("MultiLureQuestItem", new GlobalQuestItem());
 
-            addLureKey = RegisterHotKey("Add Lure", Keys.OemCloseBrackets.ToString());
-            removeLureKey = RegisterHotKey("Remove Lure", Keys.OemOpenBrackets.ToString());
+            addLureKey = new RepeatHotKey(this, "Add Lure", Keys.OemCloseBrackets.ToString());
+            removeLureKey = new RepeatHotKey(this, "Remove Lure", Keys.OemOpenBrackets.ToString());
         }
 
         public override void HotKeyPressed(string name) {
-            if(addLureKey.JustPressed) {
+            if(addLureKey.Key.JustPressed) {
                 ChangeLures(true);
-                lureKeyPressed = true;
-                lureKeyPressTime = Main._drawInterfaceGameTime.TotalGameTime.TotalMilliseconds;
+                addLureKey.Start(Main._drawInterfaceGameTime);
             }
-            else if(removeLureKey.JustPressed) {
+            else if(removeLureKey.Key.JustPressed) {
                 ChangeLures(false);
-                lureKeyPressed = true;
-                lureKeyPressTime = Main._drawInterfaceGameTime.TotalGameTime.TotalMilliseconds;
+                removeLureKey.Start(Main._drawInterfaceGameTime);
             }
         }
 
         public override void PostUpdateInput() {
-            if(!lureKeyPressed) return;
-
-            double time = Main._drawInterfaceGameTime.TotalGameTime.TotalMilliseconds;
-
-            if(!addLureKey.Current && !removeLureKey.Current) {
-                lureKeyPressed = false;
-                lureKeySpeedMultipler = 1;
+            if(addLureKey == null || removeLureKey == null)
                 return;
+
+            GameTime time = Main._drawInterfaceGameTime;
+
+            if(addLureKey.Update(time)) {
+                ChangeLures(true);
             }
-
-            if(time - lureKeyIncreaseTime >= 1000.0 & (lureKeySpeedMultipler < 32)) {
-                lureKeySpeedMultipler *= 2;
-                lureKeyIncreaseTime = time;
-            }
-
-            if(time - lureKeyPressTime >= 1000.0 / lureKeySpeedMultipler) {
-                if(addLureKey.Current) {
-                    ChangeLures(true);
-                }
-                else if(removeLureKey.Current) {
-                    ChangeLures(false);
-                }
-
-                lureKeyPressTime = time;
+            else if(removeLureKey.Update(time)) {
+                ChangeLures(false);
             }
         }
 
@@ -164,8 +144,9 @@ namespace MultiLure {
                 bool min = player.LureCount == 1;
                 Main.NewText($"You already have the {(min ? "minimum" : "maximum")} numbers of lures " +
                              $"({(min ? 1 : MAX_LURES)}).");
-                lureKeyPressed = false;
-                lureKeySpeedMultipler = 1;
+
+                if(min) removeLureKey.Stop();
+                else addLureKey.Stop();
             }
         }
 
