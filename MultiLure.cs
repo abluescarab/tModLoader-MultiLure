@@ -110,8 +110,7 @@ namespace MultiLure {
             MultiLurePlayer player = GetModPlayer();
             bool success = true;
             int count = (increase ? 1 : -1);
-            int newCount = 0;
-
+            
             if(Main.keyState.PressingShift()) {
                 count = (increase ? 10 : -10);
             }
@@ -121,7 +120,7 @@ namespace MultiLure {
                 success = false;
             }
             else {
-                newCount = player.LureCount + count;
+                int newCount = player.LureCount + count;
 
                 if(newCount >= 1 && newCount <= MAX_LURES) {
                     player.LureCount += count;
