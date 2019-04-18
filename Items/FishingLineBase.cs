@@ -38,9 +38,6 @@ namespace MultiLure.Items {
             if(mp.LureMinimum < Lures) {
                 mp.LureMinimum = Lures;
             }
-            else {
-                mp.LureCount = mp.LureMinimum + Lures;
-            }
         }
 
         public void AddRecipes(string barGroup) {
