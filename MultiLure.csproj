@@ -53,6 +53,14 @@
   <ItemGroup>
     <Compile Include="GlobalFishingPoleItem.cs" />
     <Compile Include="GlobalQuestItem.cs" />
+    <Compile Include="Items\AdamantiteFishingLine.cs" />
+    <Compile Include="Items\CobaltFishingLine.cs" />
+    <Compile Include="Items\CopperFishingLine.cs" />
+    <Compile Include="Items\FishingLineBase.cs" />
+    <Compile Include="Items\GoldFishingLine.cs" />
+    <Compile Include="Items\IronFishingLine.cs" />
+    <Compile Include="Items\MythrilFishingLine.cs" />
+    <Compile Include="Items\SilverFishingLine.cs" />
     <Compile Include="ModConfig.cs" />
     <Compile Include="MultiLure.cs" />
     <Compile Include="MultiLurePlayer.cs" />
@@ -62,6 +70,20 @@
   <ItemGroup>
     <Content Include="build.txt" />
     <Content Include="description.txt" />
+    <Content Include="Items\AdamantiteFishingLine.png" />
+    <Content Include="Items\CobaltFishingLine.png" />
+    <Content Include="Items\CopperFishingLine.png" />
+    <Content Include="Items\GoldFishingLine.png" />
+    <Content Include="Items\IronFishingLine.png" />
+    <Content Include="Items\LeadFishingLine.png" />
+    <Content Include="Items\MythrilFishingLine.png" />
+    <Content Include="Items\OrichalcumFishingLine.png" />
+    <Content Include="Items\PalladiumFishingLine.png" />
+    <Content Include="Items\PlatinumFishingLine.png" />
+    <Content Include="Items\SilverFishingLine.png" />
+    <Content Include="Items\TinFishingLine.png" />
+    <Content Include="Items\TitaniumFishingLine.png" />
+    <Content Include="Items\TungstenFishingLine.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
