@@ -1,4 +1,4 @@
-﻿MultiLure is a mod that adds a configurable number of lures while fishing and allows you to carry multiple quest fish in your inventory. MultiLure now also allows you to carry around up to 99 quest fish in a stack. 
+﻿MultiLure is a mod that adds a configurable number of lures while fishing and allows you to carry up to 99 quest fish in your inventory. MultiLure now includes fishing line accessories for those who don't like cheating. (Thanks to Dark Dragoon's Multi Lure Accessories mod for the idea!)
 
 Note: if a quest fish is in your inventory when you cast, you still can't catch any more than what you're already carrying. Drop the existing fish or put them in a chest and try again.
 
@@ -7,13 +7,19 @@ Note: if a quest fish is in your inventory when you cast, you still can't catch 
 * Press ] to add a lure
 * Hold shift to add/remove 10 lures (works with both hotkeys and Cheat Sheet/HERO's Mod)
 
+MultiLure also has a configuration file at Documents\My Games\Terraria\ModLoader\Mod Configs\MultiLure.json. Check out the homepage for the best configurations.
+
 [Credits]
 * Nomad000 for the suggestion in the Terraria Forums
 * jopojelly for Cheat Sheet
 * HERO for HERO's Mod
 * VVV101 for releasing updated version
+* Dark Dragoon for Multi Lure Accessories
 
 [Changelog]
+v3.0.0  2019-04-18
+* Added fishing line items (based on Dark Dragoon's Multi Lure Accessories)
+
 v2.2.0  2019-04-15
 * Hold down hotkeys to speed up
 * Fix: swapped default hotkeys
