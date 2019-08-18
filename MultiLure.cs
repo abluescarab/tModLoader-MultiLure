@@ -26,7 +26,7 @@ namespace MultiLure {
         internal const string AddToCheatSheet = "addToCheatSheet";
         internal const string AddToHerosMod = "addToHEROsMod";
 
-        internal static readonly ModConfig Config = new ModConfig("MultiLure");
+        internal static ModConfig Config;
         internal readonly Dictionary<string, int> FishingLineItems = new Dictionary<string, int>();
 
         private RepeatHotKey addLureKey;
@@ -36,6 +36,8 @@ namespace MultiLure {
             Properties = new ModProperties {
                 Autoload = true
             };
+
+            Config = new ModConfig("MultiLure");
 
             Config.Add(EnableHotKeys, true);
             Config.Add(EnableFishingLines, false);
@@ -57,6 +59,10 @@ namespace MultiLure {
                 addLureKey = new RepeatHotKey(this, "Add Lure", Keys.OemCloseBrackets.ToString());
                 removeLureKey = new RepeatHotKey(this, "Remove Lure", Keys.OemOpenBrackets.ToString());
             }
+        }
+
+        public override void Unload() {
+            Config = null;
         }
 
         public override void HotKeyPressed(string name) {
