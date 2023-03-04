@@ -10,10 +10,10 @@ namespace MultiLure {
         private int speedMultiplier = 1;
         private double increaseTime;
 
-        public ModHotKey Key { get; }
+        public ModKeybind Key { get; }
 
         public RepeatHotKey(Mod mod, string name, string key, int speedDelta = 2, int maxMultiplier = 32) {
-            Key = mod.RegisterHotKey(name, key);
+            Key = KeybindLoader.RegisterKeybind(mod, name, key);
             this.speedDelta = speedDelta;
             this.maxMultiplier = maxMultiplier;
         }

@@ -1,6 +1,6 @@
 ﻿MultiLure is a mod that adds a configurable number of lures while fishing and allows you to carry up to 99 quest fish in your inventory. MultiLure now includes fishing line accessories for those who don't like cheating. (Thanks to Dark Dragoon's Multi Lure Accessories mod for the idea!)
 
-Note: if a quest fish is in your inventory when you cast, you still can't catch any more than what you're already carrying. Drop the existing fish or put them in a chest and try again.
+Note: if a quest fish is in your inventory when you cast, you still can't catch any more than what you're already carrying. Drop the existing fish or put it in a chest and try again.
 
 * Includes Cheat Sheet and HERO's Mod integration (hotkeys work with or without integration)
 * Press [ to remove a lure
@@ -17,6 +17,10 @@ MultiLure also has a configuration file at Documents\My Games\Terraria\ModLoader
 * Dark Dragoon for Multi Lure Accessories
 
 [Changelog]
+v3.1.0  2023-03-04
+* Updated for tModLoader 1.4
+* Added configuration options
+
 v3.0.1  2019-08-17
 * Build for tModLoader v0.11.4
 

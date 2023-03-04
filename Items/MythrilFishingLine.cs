@@ -11,12 +11,12 @@ namespace MultiLure.Items {
 
         public override void SetDefaults() {
             base.SetDefaults();
-            item.value = Item.sellPrice(0, 2, 25, 0);
-            item.rare = ItemRarityID.LightRed;
+            Item.value = Item.sellPrice(0, 2, 25, 0);
+            Item.rare = ItemRarityID.LightRed;
         }
 
         public override void AddRecipes() {
-            AddRecipes(MultiLure.MythrilBarGroup);
+            AddRecipes(MultiLureSystem.MythrilBarGroup);
         }
     }
 }

@@ -1,21 +1,32 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace MultiLure {
     public class GlobalFishingPoleItem : GlobalItem {
-        public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
+        public override bool Shoot(Item item, Player player,
+            EntitySource_ItemUse_WithAmmo source, Vector2 position,
+            Vector2 velocity, int type, int damage, float knockback) {
             if(item.fishingPole > 0) {
-                int lures = player.GetModPlayer<MultiLurePlayer>(mod).LureCount;
+                int lures = player.GetModPlayer<MultiLurePlayer>().LureCount;
 
                 for(int i = 0; i < lures; i++) {
-                    Projectile.NewProjectile(position.X + Main.rand.Next(5), position.Y + Main.rand.Next(5), speedX + Main.rand.Next(5), speedY + Main.rand.Next(5), type, damage, knockBack, player.whoAmI);
+                    Projectile.NewProjectile(source,
+                                             position.X + Main.rand.Next(5),
+                                             position.Y + Main.rand.Next(5),
+                                             velocity.X + Main.rand.Next(5),
+                                             velocity.Y + Main.rand.Next(5),
+                                             type,
+                                             damage,
+                                             knockback,
+                                             player.whoAmI);
                 }
 
                 return false;
             }
 
-            return base.Shoot(item, player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+            return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }
     }
 }
