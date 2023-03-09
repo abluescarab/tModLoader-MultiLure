@@ -7,34 +7,45 @@
 * Press [ to remove a lure
 * Press ] to add a lure
 * Hold shift to add/remove 10 lures (works with both hotkeys and Cheat Sheet/HERO's Mod)
+* Craft fishing lines using a [String](https://terraria.fandom.com/wiki/Strings), a [Hook](https://terraria.fandom.com/wiki/Hook), and 5 metal bars when "Enable fishing lines" is on
+
+Each accessory offers:
+| Fishing Line        | Total Lures |
+| ------------------- | :---------: |
+| Copper/Tin          | 5           |
+| Iron/Lead           | 10          |
+| Silver/Gold         | 25          |
+| Cobalt/Palladium    | 50          |
+| Mythril/Orichalcum  | 75          |
+| Adamantite/Titanium | 100         |
 
 ## Configuration File
-You can configure a number of options for MultiLure. The configuration file is located at `Documents\My Games\Terraria\ModLoader\Mod Configs\MultiLure.json`.
+You can configure a number of options for MultiLure. The configuration file is located at `Documents\My Games\Terraria\ModLoader\ModConfigs`.
 
 Available options:
 
-* **enableHotKeys** - enable or disable the [ and ] hotkeys
-* **enableFishingLines** - add equippable fishing line accessories
-* **addToCheatSheet** - enable Cheat Sheet integration
-* **addToHEROsMod** - enable HERO's Mod integration
+* **EnableHotKeys** - enable or disable the [ and ] hotkeys
+* **EnableFishingLines** - add equippable fishing line accessories
+* **EnableCheatSheetIntegration** - enable Cheat Sheet integration
+* **EnableHerosModIntegration** - enable HERO's Mod integration
 
 ### Cheat Configuration
 ```
 {
-  "enableHotKeys": true,
-  "enableFishingLines": false,
-  "addToCheatSheet": true,
-  "addToHEROsMod": true
+  "EnableHotkeys": true,
+  "EnableFishingLines": false,
+  "EnableCheatSheetIntegration": true,
+  "EnableHerosModIntegration": true
 }
 ```
 
 ### Non-Cheat Configuration
 ```
 {
-  "enableHotKeys": false,
-  "enableFishingLines": true,
-  "addToCheatSheet": false,
-  "addToHEROsMod": false
+  "EnableHotkeys": false,
+  "EnableFishingLines": true,
+  "EnableCheatSheetIntegration": false,
+  "EnableHerosModIntegration": false
 }
 ```
 

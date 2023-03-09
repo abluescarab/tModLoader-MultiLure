@@ -1,0 +1,105 @@
+[h1]MultiLure is a mod that adds a configurable number of lures while fishing and allows you to carry up to 99 quest fish in your inventory.[/h1]
+
+MultiLure now includes fishing line accessories for those who don't like cheating. (Thanks to Dark Dragoon's Multi Lure Accessories mod for the idea!) [b]Note:[/b] if a quest fish is in your inventory when you cast, you still can't catch any more than what you're already carrying. Drop the existing fish or put it in a chest and try again.
+
+[list]
+    [*]Includes Cheat Sheet and HERO's Mod integration (hotkeys work with or without integration)
+    [*]Press [ to remove a lure
+    [*]Press ] to add a lure
+    [*]Hold shift to add/remove 10 lures (works with both hotkeys and Cheat Sheet/HERO's Mod)
+    [*]Craft fishing lines using a String, a Hook, and 5 metal bars when "Enable fishing lines" is on
+[/list]
+
+Each accessory offers:
+[table]
+    [tr]
+        [th]Fishing Line[/th]
+        [th]Total Lures[/th]
+    [/tr]
+    [tr]
+        [td]Copper/Tin[/td]
+        [td]5[/td]
+    [/tr]
+    [tr]
+        [td]Iron/Lead[/td]
+        [td]10[/td]
+    [/tr]
+    [tr]
+        [td]Silver/Gold[/td]
+        [td]25[/td]
+    [/tr]
+    [tr]
+        [td]Cobalt/Palladium[/td]
+        [td]50[/td]
+    [/tr]
+    [tr]
+        [td]Mythril/Orichalcum[/td]
+        [td]75[/td]
+    [/tr]
+    [tr]
+        [td]Adamantite/Titanium[/td]
+        [td]100[/td]
+    [/tr]
+[/table]
+
+MultiLure also has a configuration file at Documents\My Games\Terraria\ModLoader\ModConfigs. Check out the homepage for the best configurations.
+
+[b]Credits[/b]
+[list]
+    [*]Nomad000 for the suggestion in the Terraria Forums
+    [*]jopojelly for Cheat Sheet
+    [*]HERO for HERO's Mod
+    [*]VVV101 for releasing updated version
+    [*]Dark Dragoon for Multi Lure Accessories
+[/list]
+
+[b]Changelog[/b]
+v3.2.0  2023-03-09
+* Increased copper/tin fishing line lures to 5
+* Increased iron/lead fishing line lures to 10
+* Updated description with info on fishing lines
+
+v3.1.1  2023-03-05
+* Hotfix: Fixed input not working when hotkeys disabled
+
+v3.1.0  2023-03-04
+* Updated for tModLoader 1.4
+* Added configuration options
+
+v3.0.1  2019-08-17
+* Build for tModLoader v0.11.4
+
+v3.0.0  2019-04-18
+* Added fishing line items (based on Dark Dragoon's Multi Lure Accessories)
+
+v2.2.0  2019-04-15
+* Hold down hotkeys to speed up
+* Fix: swapped default hotkeys
+
+v2.1.1  2017-11-06
+* Compiled for tModLoader v0.10.1
+
+v2.1.0  2017-07-20
+* Added the ability to carry multiple quest fish
+
+v2.0.0  2017-07-19
+* Increased maximum lures to 100
+* Added ability to press shift to add/remove 10 lures
+
+v1.0.5  2017-07-09
+* Updated credits
+* Fixed version
+
+v1.0.4  2017-07-09
+* Compiled for tModLoader v0.10.0.2
+
+v1.0.3  2016-12-22
+* Fixed for new IO system
+
+v1.0.2  2016-10-01
+* Compiled for Terraria 1.3.3.2
+
+v1.0.1  2016-08-13
+* Now displays message when lure count is changed with hotkeys
+
+v1.1.0  2016-08-09

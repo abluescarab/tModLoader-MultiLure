@@ -7,12 +7,7 @@ namespace MultiLure.Items {
         public override string AlternativeName => "TinFishingLine";
         public override string OriginalDisplayName => "Copper Fishing Line";
         public override string AlternativeDisplayName => "Tin Fishing Line";
-        public override int Lures => 2;
-
-        public override void SetStaticDefaults() {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Adds an extra fishing lure");
-        }
+        public override int Lures => 5;
 
         public override void SetDefaults() {
             base.SetDefaults();
