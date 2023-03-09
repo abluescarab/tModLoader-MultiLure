@@ -32,6 +32,7 @@ MultiLure also has a configuration file at Documents\My Games\Terraria\ModLoader
 v3.2.0  2023-03-09
 * Increased copper/tin fishing line lures to 5
 * Increased iron/lead fishing line lures to 10
+* Updated description with info on fishing lines
 
 v3.1.1  2023-03-05
 * Hotfix: Fixed input not working when hotkeys disabled
