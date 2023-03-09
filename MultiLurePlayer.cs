@@ -27,11 +27,11 @@ namespace MultiLure {
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet) {
-            if(MultiLureSystem.AddLureKey.Key.JustPressed) {
+            if(MultiLureSystem.AddLureKey != null && MultiLureSystem.AddLureKey.Key.JustPressed) {
                 MultiLureSystem.ChangeLures(true);
                 MultiLureSystem.AddLureKey.Start(Main._drawInterfaceGameTime);
             }
-            else if(MultiLureSystem.RemoveLureKey.Key.JustPressed) {
+            else if(MultiLureSystem.RemoveLureKey != null && MultiLureSystem.RemoveLureKey.Key.JustPressed) {
                 MultiLureSystem.ChangeLures(false);
                 MultiLureSystem.RemoveLureKey.Start(Main._drawInterfaceGameTime);
             }

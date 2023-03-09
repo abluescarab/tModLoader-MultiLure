@@ -17,6 +17,9 @@ MultiLure also has a configuration file at Documents\My Games\Terraria\ModLoader
 * Dark Dragoon for Multi Lure Accessories
 
 [Changelog]
+v3.1.1  2023-03-05
+* Hotfix: Fixed input not working when hotkeys disabled
+
 v3.1.0  2023-03-04
 * Updated for tModLoader 1.4
 * Added configuration options
