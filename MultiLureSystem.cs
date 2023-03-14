@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -20,15 +21,13 @@ namespace MultiLure {
         public static RepeatHotKey RemoveLureKey;
 
         public override void Load() {
-            if(MultiLureConfig.Instance.EnableHotkeys) {
+            if(ModContent.GetInstance<MultiLureConfig>().EnableHotkeys) {
                 AddLureKey = new RepeatHotKey(Mod, "Add Lure", Keys.OemCloseBrackets.ToString());
                 RemoveLureKey = new RepeatHotKey(Mod, "Remove Lure", Keys.OemOpenBrackets.ToString());
             }
         }
 
         public override void AddRecipeGroups() {
-            if(!MultiLureConfig.Instance.EnableFishingLines) return;
-
             var any = Language.GetText("LegacyMisc.37");
 
             RecipeGroup whiteString = new RecipeGroup(
@@ -86,7 +85,11 @@ namespace MultiLure {
         }
 
         public static void ChangeLures(bool increase) {
-            MultiLurePlayer player = Main.player[Main.myPlayer].GetModPlayer<MultiLurePlayer>();
+            MultiLurePlayer player = Main.CurrentPlayer.GetModPlayer<MultiLurePlayer>();
+
+            if(player.CheatLureMinimum < player.LureMinimum) {
+                player.CheatLureMinimum = player.LureMinimum;
+            }
 
             bool success = true;
             int count = (increase ? 1 : -1);
@@ -95,36 +98,23 @@ namespace MultiLure {
                 count = (increase ? 10 : -10);
             }
 
-            int minimum = 1;
+            int cheatMinimum = player.CheatLureMinimum + count;
 
-            player.AnyLineEquipped(out minimum);
-
-            if((!increase && player.LureMinimum == minimum) || (increase && player.LureMinimum == player.LureMaximum)) {
+            if(increase && cheatMinimum > player.LureMaximum ||
+                !increase && cheatMinimum < player.LureMinimum) {
                 success = false;
             }
             else {
-                int newCount = player.LureMinimum + count;
-
-                if(newCount >= 1 && newCount <= player.LureMaximum) {
-                    player.LureMinimum += count;
-                }
-                else if(newCount < minimum) {
-                    player.LureMinimum = minimum;
-                }
-                else if(newCount > player.LureMaximum) {
-                    player.LureMinimum = player.LureMaximum;
-                }
-                else {
-                    success = false;
-                }
+                player.CheatLureMinimum = 
+                    Math.Clamp(cheatMinimum, player.LureMinimum, player.LureMaximum);
             }
 
             if(success) {
-                Main.NewText("Lures " + (increase ? "increased" : "decreased") + " to " + player.LureMinimum + ".");
+                Main.NewText("Lures " + (increase ? "increased" : "decreased") + " to " + player.CheatLureMinimum + ".");
             }
             else {
                 Main.NewText($"You already have the {(increase ? "maximum" : "minimum")} numbers of lures " +
-                             $"({(increase ? player.LureMaximum : minimum)}).");
+                             $"({(increase ? player.LureMaximum : player.LureMinimum)}).");
 
                 if(increase) AddLureKey.Stop();
                 else RemoveLureKey.Stop();

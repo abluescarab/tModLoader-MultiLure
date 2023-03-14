@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MultiLure.Items {
-    [Autoload(false)]
     public abstract class FishingLineBase : ModItem {
         public abstract string OriginalName { get; }
         public abstract string AlternativeName { get; }
@@ -26,10 +25,20 @@ namespace MultiLure.Items {
 
         public override bool CanEquipAccessory(Player player, int slot, bool modded) {
             MultiLurePlayer mp = player.GetModPlayer<MultiLurePlayer>();
-            return mp.AnyLineEquipped(slot);
+            mp.HasLine(out int minimumLures, out int equippedSlot);
+
+            return slot == equippedSlot || minimumLures == MultiLurePlayer.LURE_MIN;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual) {
+            MultiLurePlayer mp = player.GetModPlayer<MultiLurePlayer>();
+
+            if(mp.LureMinimum < Lures) {
+                mp.LureMinimum = Lures;
+            }
+        }
+
+        public override void UpdateInventory(Player player) {
             MultiLurePlayer mp = player.GetModPlayer<MultiLurePlayer>();
 
             if(mp.LureMinimum < Lures) {

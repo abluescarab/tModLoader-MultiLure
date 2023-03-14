@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MultiLure.Items;
+using System;
 using System.Linq;
-using MultiLure.Items;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ModLoader;
@@ -10,20 +10,36 @@ namespace MultiLure {
     public class MultiLurePlayer : ModPlayer {
         private const string LureCountTag = "lurecount";
 
+        public const int LURE_MIN = 1;
+
         public int LureMaximum { get; set; } = 100;
-        public int LureMinimum { get; set; } = 1;
-        public int LureCount { get; set; } = 1;
+        public int LureMinimum { get; set; } = LURE_MIN;
+        public int CheatLureMinimum { get; set; } = LURE_MIN;
+        public int LureCount { get; set; } = LURE_MIN;
 
         public override void ResetEffects() {
-            LureCount = LureMinimum;
+            if(CheatLureMinimum < LureMinimum) {
+                CheatLureMinimum = LureMinimum;
+            }
+
+            LureCount = CheatLureMinimum > LureMinimum 
+                ? CheatLureMinimum 
+                : LureMinimum;
+            LureMinimum = LURE_MIN;
         }
 
         public override void SaveData(TagCompound tag) {
-            tag.Add(LureCountTag, (byte)LureMinimum);
+            tag.Add(LureCountTag, (byte)CheatLureMinimum);
         }
 
         public override void LoadData(TagCompound tag) {
-            LureMinimum = tag.GetByte(LureCountTag);
+            MultiLureConfig config = ModContent.GetInstance<MultiLureConfig>();
+
+            if(config.EnableCheatSheetIntegration
+                || config.EnableHerosModIntegration
+                || config.EnableHotkeys) {
+                CheatLureMinimum = tag.GetByte(LureCountTag);
+            }
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet) {
@@ -37,25 +53,45 @@ namespace MultiLure {
             }
         }
 
-        internal bool AnyLineEquipped(int slot = -1) {
-            int ignore = -1;
-            return AnyLineEquipped(out ignore, slot);
+        internal bool HasLine() {
+            return HasLine(out int _, out int _);
         }
 
-        internal bool AnyLineEquipped(out int minimumLures, int slot = -1) {
-            var items = ((MultiLure)Mod).FishingLineItems;
-            var equipped = Array.FindIndex(Player.armor.Select(a => a.type).ToArray(), t => items.ContainsValue(t));
+        internal bool HasLine(out int minimumLures, out int accessorySlot) {
+            var items = Mod.GetContent<ModItem>().Select(i => i.Type);
+            int index = Array.FindIndex(
+                Player.armor,
+                a => items.Contains(a.type));
+            FishingLineBase lineItem;
 
-            if(equipped == -1) {
-                minimumLures = 1;
-                return true;
+            // check armor/accessories
+            if(index == -1) {
+                accessorySlot = -1;
+
+                // check inventory
+                index = Array.FindIndex(
+                    Player.inventory,
+                    i => items.Contains(i.type));
+
+                if(index == -1) {
+                    minimumLures = LURE_MIN;
+                    return false;
+                }
+
+                lineItem =
+                    ItemLoader.GetItem(Player.inventory[index].type)
+                    as FishingLineBase;
+            }
+            else {
+                accessorySlot = index;
+
+                lineItem =
+                    ItemLoader.GetItem(Player.armor[index].type)
+                    as FishingLineBase;
             }
 
-            int item = items.FirstOrDefault(i => i.Value == Player.armor[equipped].type).Value;
-
-            minimumLures = ((FishingLineBase)ItemLoader.GetItem(item)).Lures;
-
-            return equipped == slot;
+            minimumLures = lineItem.Lures;
+            return true;
         }
     }
 }

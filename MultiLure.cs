@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using MultiLure.Items;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -13,29 +11,24 @@ namespace MultiLure {
         internal const string PermissionName = "ModifyLureCount";
         internal const string PermissionDisplayName = "Modify Lure Count";
 
-        internal readonly Dictionary<string, int> FishingLineItems = new Dictionary<string, int>();
-
         public MultiLure() {
             ContentAutoloadingEnabled = true;
         }
 
-        public override void Load() {
-            if(MultiLureConfig.Instance.EnableFishingLines) {
-                AddFishingLines(typeof(CopperFishingLine),
-                                typeof(IronFishingLine),
-                                typeof(SilverFishingLine),
-                                typeof(GoldFishingLine),
-                                typeof(CobaltFishingLine),
-                                typeof(MythrilFishingLine),
-                                typeof(AdamantiteFishingLine));
-            }
-        }
-
         public override void PostSetupContent() {
-            Func<string> addTooltip = () => $"Add Lure (Current: {GetModPlayer().LureCount})";
-            Func<string> removeTooltip = () => $"Remove Lure (Current: {GetModPlayer().LureCount})";
+            Func<string> addTooltip = () => {
+                MultiLurePlayer player = Main.CurrentPlayer.GetModPlayer<MultiLurePlayer>();
+                return $"Add Lure (Current: {player.LureCount})";
+            };
 
-            if(MultiLureConfig.Instance.EnableCheatSheetIntegration) {
+            Func<string> removeTooltip = () => {
+                MultiLurePlayer player = Main.CurrentPlayer.GetModPlayer<MultiLurePlayer>();
+                return $"Remove Lure (Current: {player.LureCount})";
+            };
+
+            MultiLureConfig config = ModContent.GetInstance<MultiLureConfig>();
+
+            if(config.EnableCheatSheetIntegration) {
                 if(ModLoader.TryGetMod("CheatSheet", out Mod cheatSheet) && !Main.dedServ) {
                     cheatSheet.Call("AddButton_Test",
                                     ModContent.Request<Texture2D>(AddLureTexture),
@@ -49,7 +42,7 @@ namespace MultiLure {
                 }
             }
 
-            if(MultiLureConfig.Instance.EnableHerosModIntegration) {
+            if(config.EnableHerosModIntegration) {
                 if(ModLoader.TryGetMod("HEROsMod", out Mod herosMod)) {
                     herosMod.Call("AddPermission", PermissionName, PermissionDisplayName);
 
@@ -70,24 +63,11 @@ namespace MultiLure {
 
         public void PermissionsChanged(bool hasPermission) {
             if(!hasPermission) {
-                MultiLurePlayer player = GetModPlayer();
+                MultiLurePlayer player 
+                    = Main.CurrentPlayer.GetModPlayer<MultiLurePlayer>();
                 player.LureMinimum = 1;
                 player.LureMaximum = 1;
             }
-        }
-
-        public void AddFishingLines(params Type[] types) {
-            foreach(var type in types) {
-                var inst = (FishingLineBase)Activator.CreateInstance(type);
-
-                AddContent(inst);
-
-                FishingLineItems.Add(inst.OriginalName, Find<ModItem>(inst.OriginalName).Type);
-            }
-        }
-
-        private static MultiLurePlayer GetModPlayer() {
-            return Main.LocalPlayer.GetModPlayer<MultiLurePlayer>();
         }
     }
 }

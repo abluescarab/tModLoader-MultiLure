@@ -54,6 +54,11 @@ MultiLure also has a configuration file at Documents\My Games\Terraria\ModLoader
 [/list]
 
 [b]Changelog[/b]
+// TODO
+v3.2.1  2023-03-??
+* Improved functionality with items and cheats together
+* Removed toggle for items due to multiplayer issues
+
 v3.2.0  2023-03-09
 * Increased copper/tin fishing line lures to 5
 * Increased iron/lead fishing line lures to 10
