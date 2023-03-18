@@ -9,22 +9,19 @@ namespace MultiLure {
         private const string RemoveLureTexture = "MultiLure/Textures/RemoveLure";
 
         internal const string PermissionName = "ModifyLureCount";
-        internal const string PermissionDisplayName = "Modify Lure Count";
 
         public MultiLure() {
             ContentAutoloadingEnabled = true;
         }
 
         public override void PostSetupContent() {
-            Func<string> addTooltip = () => {
-                MultiLurePlayer player = Main.CurrentPlayer.GetModPlayer<MultiLurePlayer>();
-                return $"Add Lure (Current: {player.LureCount})";
-            };
+            Func<string> addTooltip = () 
+                => $"Add Lure (Current: " +
+                   $"{Main.CurrentPlayer.GetModPlayer<MultiLurePlayer>().LureCount})";
 
-            Func<string> removeTooltip = () => {
-                MultiLurePlayer player = Main.CurrentPlayer.GetModPlayer<MultiLurePlayer>();
-                return $"Remove Lure (Current: {player.LureCount})";
-            };
+            Func<string> removeTooltip = ()
+                => $"Remove Lure (Current: " +
+                   $"{Main.CurrentPlayer.GetModPlayer<MultiLurePlayer>().LureCount})";
 
             MultiLureConfig config = ModContent.GetInstance<MultiLureConfig>();
 
@@ -44,7 +41,7 @@ namespace MultiLure {
 
             if(config.EnableHerosModIntegration) {
                 if(ModLoader.TryGetMod("HEROsMod", out Mod herosMod)) {
-                    herosMod.Call("AddPermission", PermissionName, PermissionDisplayName);
+                    herosMod.Call("AddPermission", PermissionName, "Modify Lure Count");
 
                     if(!Main.dedServ) {
                         herosMod.Call("AddSimpleButton", PermissionName, ModContent.Request<Texture2D>(AddLureTexture),

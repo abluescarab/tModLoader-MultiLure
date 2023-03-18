@@ -6,20 +6,18 @@ Note: if a quest fish is in your inventory when you cast, you still can't catch 
 * Press [ to remove a lure
 * Press ] to add a lure
 * Hold shift to add/remove 10 lures (works with both hotkeys and Cheat Sheet/HERO's Mod)
-* Craft fishing lines using a String, a Hook, and 5 metal bars when "Enable fishing lines" is on
+* Craft fishing lines using a String, a Hook, and 5 metal bars
 
 Each accessory offers:
 ---------------------+-------------
  Fishing Line        | Total Lures
 ---------------------+-------------
- Copper/Tin          | 5
- Iron/Lead           | 10
- Silver/Gold         | 25
+ Iron/Lead           | 5
+ Silver/Tungsten     | 10
+ Gold/Platinum       | 25
  Cobalt/Palladium    | 50
  Mythril/Orichalcum  | 75
  Adamantite/Titanium | 100
-
-MultiLure also has a configuration file at Documents\My Games\Terraria\ModLoader\ModConfigs. Check out the homepage for the best configurations.
 
 [Credits]
 * Nomad000 for the suggestion in the Terraria Forums
@@ -29,10 +27,11 @@ MultiLure also has a configuration file at Documents\My Games\Terraria\ModLoader
 * Dark Dragoon for Multi Lure Accessories
 
 [Changelog]
-// TODO
-v3.2.1  2023-03-??
+v3.3.0  2023-03-18
 * Improved functionality with items and cheats together
 * Removed toggle for items due to multiplayer issues
+* Deprecated copper fishing line to fix number of lure tiers
+* Added localization support
 
 v3.2.0  2023-03-09
 * Increased copper/tin fishing line lures to 5

@@ -7,7 +7,7 @@ MultiLure now includes fishing line accessories for those who don't like cheatin
     [*]Press [ to remove a lure
     [*]Press ] to add a lure
     [*]Hold shift to add/remove 10 lures (works with both hotkeys and Cheat Sheet/HERO's Mod)
-    [*]Craft fishing lines using a String, a Hook, and 5 metal bars when "Enable fishing lines" is on
+    [*]Craft fishing lines using a String, a Hook, and 5 metal bars
 [/list]
 
 Each accessory offers:
@@ -17,15 +17,15 @@ Each accessory offers:
         [th]Total Lures[/th]
     [/tr]
     [tr]
-        [td]Copper/Tin[/td]
+        [td]Iron/Lead[/td]
         [td]5[/td]
     [/tr]
     [tr]
-        [td]Iron/Lead[/td]
+        [td]Silver/Tungsten[/td]
         [td]10[/td]
     [/tr]
     [tr]
-        [td]Silver/Gold[/td]
+        [td]Gold/Platinum[/td]
         [td]25[/td]
     [/tr]
     [tr]
@@ -42,8 +42,6 @@ Each accessory offers:
     [/tr]
 [/table]
 
-MultiLure also has a configuration file at Documents\My Games\Terraria\ModLoader\ModConfigs. Check out the homepage for the best configurations.
-
 [b]Credits[/b]
 [list]
     [*]Nomad000 for the suggestion in the Terraria Forums
@@ -54,10 +52,11 @@ MultiLure also has a configuration file at Documents\My Games\Terraria\ModLoader
 [/list]
 
 [b]Changelog[/b]
-// TODO
-v3.2.1  2023-03-??
+v3.3.0  2023-03-18
 * Improved functionality with items and cheats together
 * Removed toggle for items due to multiplayer issues
+* Deprecated copper fishing line to fix number of lure tiers
+* Added localization support
 
 v3.2.0  2023-03-09
 * Increased copper/tin fishing line lures to 5

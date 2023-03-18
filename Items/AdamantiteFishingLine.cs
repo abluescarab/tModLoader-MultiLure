@@ -5,8 +5,8 @@ namespace MultiLure.Items {
     public class AdamantiteFishingLine : FishingLineBase {
         public override string OriginalName => "AdamantiteFishingLine";
         public override string AlternativeName => "TitaniumFishingLine";
-        public override string OriginalDisplayName => "Adamantite Fishing Line";
-        public override string AlternativeDisplayName => "Titanium Fishing Line";
+        public override string OriginalDisplayName => "{$Mods.MultiLure.Items.AdamantiteFishingLine}";
+        public override string AlternativeDisplayName => "{$Mods.MultiLure.Items.TitaniumFishingLine}";
         public override int Lures => 100;
 
         public override void SetDefaults() {

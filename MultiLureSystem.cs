@@ -22,8 +22,14 @@ namespace MultiLure {
 
         public override void Load() {
             if(ModContent.GetInstance<MultiLureConfig>().EnableHotkeys) {
-                AddLureKey = new RepeatHotKey(Mod, "Add Lure", Keys.OemCloseBrackets.ToString());
-                RemoveLureKey = new RepeatHotKey(Mod, "Remove Lure", Keys.OemOpenBrackets.ToString());
+                AddLureKey = new RepeatHotKey(
+                    Mod, 
+                    Language.GetTextValue("Mods.MultiLure.AddLure_Hotkey"),
+                    Keys.OemCloseBrackets.ToString());
+                RemoveLureKey = new RepeatHotKey(
+                    Mod,
+                    Language.GetTextValue("Mods.MultiLure.RemoveLure_Hotkey"),
+                    Keys.OemOpenBrackets.ToString());
             }
         }
 
@@ -110,12 +116,19 @@ namespace MultiLure {
             }
 
             if(success) {
-                Main.NewText("Lures " + (increase ? "increased" : "decreased") + " to " + player.CheatLureMinimum + ".");
+                Main.NewText(
+                    Language.GetTextValue(
+                        increase
+                        ? "Mods.MultiLure.LuresIncreased"
+                        : "Mods.MultiLure.LuresDecreased",
+                        player.CheatLureMinimum));
             }
             else {
-                Main.NewText($"You already have the {(increase ? "maximum" : "minimum")} numbers of lures " +
-                             $"({(increase ? player.LureMaximum : player.LureMinimum)}).");
-
+                Main.NewText(
+                    increase
+                    ? Language.GetTextValue("Mods.MultiLure.LuresMaximum", player.LureMaximum)
+                    : Language.GetTextValue("Mods.MultiLure.LuresMinimum", player.LureMinimum));
+                    
                 if(increase) AddLureKey.Stop();
                 else RemoveLureKey.Stop();
             }

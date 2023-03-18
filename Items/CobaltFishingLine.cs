@@ -5,8 +5,8 @@ namespace MultiLure.Items {
     public class CobaltFishingLine : FishingLineBase {
         public override string OriginalName => "CobaltFishingLine";
         public override string AlternativeName => "PalladiumFishingLine";
-        public override string OriginalDisplayName => "Cobalt Fishing Line";
-        public override string AlternativeDisplayName => "Palladium Fishing Line";
+        public override string OriginalDisplayName => "{$Mods.MultiLure.Items.CobaltFishingLine}";
+        public override string AlternativeDisplayName => "{$Mods.MultiLure.Items.PalladiumFishingLine}";
         public override int Lures => 50;
 
         public override void SetDefaults() {

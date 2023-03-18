@@ -5,8 +5,8 @@ namespace MultiLure.Items {
     public class SilverFishingLine : FishingLineBase {
         public override string OriginalName => "SilverFishingLine";
         public override string AlternativeName => "TungstenFishingLine";
-        public override string OriginalDisplayName => "Silver Fishing Line";
-        public override string AlternativeDisplayName => "Tungsten Fishing Line";
+        public override string OriginalDisplayName => "{$Mods.MultiLure.Items.SilverFishingLine}";
+        public override string AlternativeDisplayName => "{$Mods.MultiLure.Items.TungstenFishingLine}";
         public override int Lures => 10;
 
         public override void SetDefaults() {

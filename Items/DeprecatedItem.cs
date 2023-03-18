@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace MultiLure.Items {
-    public abstract class DeprecatedItem : ModItem {
+    public abstract class DeprecatedItem : FishingLineBase {
         protected struct ReplacementItem {
             public readonly int ID;
             public readonly int Stack;
@@ -48,7 +47,7 @@ namespace MultiLure.Items {
             Type thisType = GetType();
 
             if(DeprecatedMessageShown.ContainsKey(thisType)
-                && DeprecatedMessageShown[thisType]) {
+                && !DeprecatedMessageShown[thisType]) {
                 string[] replacements = new string[Replacements.Length];
 
                 for(int i = 0; i < replacements.Length; i++) {

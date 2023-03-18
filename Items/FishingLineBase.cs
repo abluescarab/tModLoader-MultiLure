@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MultiLure.Items {
@@ -16,7 +17,10 @@ namespace MultiLure.Items {
             else if(Name == AlternativeName)
                 DisplayName.SetDefault(AlternativeDisplayName);
 
-            Tooltip.SetDefault($"Adds an extra {Lures - 1} fishing lures");
+            Tooltip.SetDefault(
+                Language.GetTextValue(
+                    "Mods.MultiLure.FishingLine_Tooltip", 
+                    Lures - 1));
         }
 
         public override void SetDefaults() {
