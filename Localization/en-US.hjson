@@ -1,0 +1,5 @@
+﻿Mods: {
+	MultiLure: {
+		DeprecatedMessage: "{0} has been removed from MultiLure. Right-click to receive {1}."
+	}
+}
