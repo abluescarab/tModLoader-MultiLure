@@ -7,7 +7,7 @@ namespace MultiLure.Items {
         public override string AlternativeName => "LeadFishingLine";
         public override string OriginalDisplayName => "Iron Fishing Line";
         public override string AlternativeDisplayName => "Lead Fishing Line";
-        public override int Lures => 10;
+        public override int Lures => 5;
 
         public override void SetDefaults() {
             base.SetDefaults();
