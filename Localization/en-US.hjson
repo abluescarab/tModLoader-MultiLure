@@ -1,8 +1,6 @@
 Mods: {
 	MultiLure: {
 		DeprecatedMessage: "{0} has been removed from MultiLure. Right-click to receive {1}."
-		AddLure_Hotkey: Add Lure
-		RemoveLure_Hotkey: Remove Lure
 		LuresIncreased: Lures increased to {0}.
 		LuresDecreased: Lures decreased to {0}.
 		LuresMinimum: You already have the minimum number of lures ({0}).
@@ -33,7 +31,47 @@ Mods: {
 					Label: Enable HERO's Mod integration
 					Tooltip: ""
 				}
+
+				Headers: {
+					FishingLureOptions: Fishing Lure Options
+					CheatOptions: Cheat Options
+				}
+
+				IronFishingLineLures: {
+					Label: Iron lures
+					Tooltip: ""
+				}
+
+				SilverFishingLineLures: {
+					Label: Silver lures
+					Tooltip: ""
+				}
+
+				GoldFishingLineLures: {
+					Label: Gold lures
+					Tooltip: ""
+				}
+
+				CobaltFishingLineLures: {
+					Label: Cobalt lures
+					Tooltip: ""
+				}
+
+				MythrilFishingLineLures: {
+					Label: Mythril lures
+					Tooltip: ""
+				}
+
+				AdamantiteFishingLineLures: {
+					Label: Adamantite lures
+					Tooltip: ""
+				}
 			}
+		}
+
+		Keybinds: {
+			AddLure.DisplayName: Add Lure
+			RemoveLure.DisplayName: Remove Lure
 		}
 	}
 }

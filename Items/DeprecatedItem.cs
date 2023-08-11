@@ -24,7 +24,7 @@ namespace MultiLure.Items {
             }
         }
 
-        protected static Dictionary<Type, bool> DeprecatedMessageShown = new Dictionary<Type, bool>();
+        protected static Dictionary<Type, bool> DeprecatedMessageShown = new();
         protected abstract ReplacementItem[] Replacements { get; }
 
         public sealed override void Load() {
@@ -96,7 +96,7 @@ namespace MultiLure.Items {
                     index = Array.FindIndex(player.inventory, i => i.stack == 0);
                 }
 
-                Item item = new Item(Replacements[i].ID, Replacements[i].Stack, Replacements[i].Prefix);
+                Item item = new(Replacements[i].ID, Replacements[i].Stack, Replacements[i].Prefix);
 
                 // copied from game source to highlight as new item
                 if(ItemSlot.Options.HighlightNewItems && item.type >= ItemID.None && !ItemID.Sets.NeverAppearsAsNewInInventory[item.type]) {

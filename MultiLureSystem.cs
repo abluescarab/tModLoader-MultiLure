@@ -22,21 +22,15 @@ namespace MultiLure {
 
         public override void Load() {
             if(ModContent.GetInstance<MultiLureConfig>().EnableHotkeys) {
-                AddLureKey = new RepeatHotKey(
-                    Mod, 
-                    Language.GetTextValue("Mods.MultiLure.AddLure_Hotkey"),
-                    Keys.OemCloseBrackets.ToString());
-                RemoveLureKey = new RepeatHotKey(
-                    Mod,
-                    Language.GetTextValue("Mods.MultiLure.RemoveLure_Hotkey"),
-                    Keys.OemOpenBrackets.ToString());
+                AddLureKey = new RepeatHotKey(Mod, "AddLure", Keys.OemCloseBrackets.ToString());
+                RemoveLureKey = new RepeatHotKey(Mod, "RemoveLure", Keys.OemOpenBrackets.ToString());
             }
         }
 
         public override void AddRecipeGroups() {
             var any = Language.GetText("LegacyMisc.37");
 
-            RecipeGroup whiteString = new RecipeGroup(
+            RecipeGroup whiteString = new(
                 () => $"{any} {Language.GetTextValue("ItemName.WhiteString")}",
                 ItemID.WhiteString, ItemID.BlackString, ItemID.BlueString,
                 ItemID.BrownString, ItemID.CyanString, ItemID.GreenString,
@@ -44,25 +38,25 @@ namespace MultiLure {
                 ItemID.PurpleString, ItemID.RainbowString, ItemID.RedString,
                 ItemID.SkyBlueString, ItemID.TealString, ItemID.VioletString,
                 ItemID.YellowString);
-            RecipeGroup copperBar = new RecipeGroup(
+            RecipeGroup copperBar = new(
                 () => $"{any} {Language.GetText("ItemName.CopperBar")}",
                 ItemID.CopperBar, ItemID.TinBar);
-            RecipeGroup ironBar = new RecipeGroup(
+            RecipeGroup ironBar = new(
                 () => $"{any} {Language.GetText("ItemName.IronBar")}",
                 ItemID.IronBar, ItemID.LeadBar);
-            RecipeGroup silverBar = new RecipeGroup(
+            RecipeGroup silverBar = new(
                 () => $"{any} {Language.GetText("ItemName.SilverBar")}",
                 ItemID.SilverBar, ItemID.TungstenBar);
-            RecipeGroup goldBar = new RecipeGroup(
+            RecipeGroup goldBar = new(
                 () => $"{any} {Language.GetText("ItemName.GoldBar")}",
                 ItemID.GoldBar, ItemID.PlatinumBar);
-            RecipeGroup cobaltBar = new RecipeGroup(
+            RecipeGroup cobaltBar = new(
                 () => $"{any} {Language.GetText("ItemName.CobaltBar")}",
                 ItemID.CobaltBar, ItemID.PalladiumBar);
-            RecipeGroup mythrilBar = new RecipeGroup(
+            RecipeGroup mythrilBar = new(
                 () => $"{any} {Language.GetText("ItemName.MythrilBar")}",
                 ItemID.MythrilBar, ItemID.OrichalcumBar);
-            RecipeGroup adamantiteBar = new RecipeGroup(
+            RecipeGroup adamantiteBar = new(
                 () => $"{any} {Language.GetText("ItemName.AdamantiteBar")}",
                 ItemID.AdamantiteBar, ItemID.TitaniumBar);
 
@@ -111,7 +105,7 @@ namespace MultiLure {
                 success = false;
             }
             else {
-                player.CheatLureMinimum = 
+                player.CheatLureMinimum =
                     Math.Clamp(cheatMinimum, player.LureMinimum, player.LureMaximum);
             }
 
@@ -128,7 +122,7 @@ namespace MultiLure {
                     increase
                     ? Language.GetTextValue("Mods.MultiLure.LuresMaximum", player.LureMaximum)
                     : Language.GetTextValue("Mods.MultiLure.LuresMinimum", player.LureMinimum));
-                    
+
                 if(increase) AddLureKey.Stop();
                 else RemoveLureKey.Stop();
             }

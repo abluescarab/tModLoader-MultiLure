@@ -60,7 +60,7 @@ namespace MultiLure {
             }
         }
 
-        public void PermissionsChanged(bool hasPermission) {
+        public static void PermissionsChanged(bool hasPermission) {
             if(!hasPermission) {
                 MultiLurePlayer player 
                     = Main.CurrentPlayer.GetModPlayer<MultiLurePlayer>();

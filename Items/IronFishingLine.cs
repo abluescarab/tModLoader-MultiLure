@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace MultiLure.Items {
     public class IronFishingLine : FishingLineBase {
@@ -8,7 +9,7 @@ namespace MultiLure.Items {
         public override string AlternativeName => "LeadFishingLine";
         public override string OriginalType => Language.GetTextValue("MapObject.Iron");
         public override string AlternativeType => Language.GetTextValue("MapObject.Lead");
-        public override int Lures => 5;
+        public override int Lures => ModContent.GetInstance<MultiLureConfig>().IronFishingLineLures;
 
         public override void SetDefaults() {
             base.SetDefaults();

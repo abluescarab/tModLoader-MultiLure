@@ -18,13 +18,19 @@ namespace MultiLure {
         public int LureCount { get; set; } = LURE_MIN;
 
         public override void ResetEffects() {
-            if(CheatLureMinimum < LureMinimum) {
-                CheatLureMinimum = LureMinimum;
-            }
+            if(AnyCheatsEnabled()) {
+                if(CheatLureMinimum < LureMinimum) {
+                    CheatLureMinimum = LureMinimum;
+                }
 
-            LureCount = CheatLureMinimum > LureMinimum 
-                ? CheatLureMinimum 
-                : LureMinimum;
+                LureCount = CheatLureMinimum > LureMinimum
+                    ? CheatLureMinimum
+                    : LureMinimum;
+            }
+            else {
+                LureCount = LureMinimum;
+            }
+            
             LureMinimum = LURE_MIN;
         }
 
@@ -53,45 +59,12 @@ namespace MultiLure {
             }
         }
 
-        internal bool HasLine() {
-            return HasLine(out int _, out int _);
-        }
+        private static bool AnyCheatsEnabled() {
+            MultiLureConfig config = ModContent.GetInstance<MultiLureConfig>();
 
-        internal bool HasLine(out int minimumLures, out int accessorySlot) {
-            var items = Mod.GetContent<ModItem>().Select(i => i.Type);
-            int index = Array.FindIndex(
-                Player.armor,
-                a => items.Contains(a.type));
-            FishingLineBase lineItem;
-
-            // check armor/accessories
-            if(index == -1) {
-                accessorySlot = -1;
-
-                // check inventory
-                index = Array.FindIndex(
-                    Player.inventory,
-                    i => items.Contains(i.type));
-
-                if(index == -1) {
-                    minimumLures = LURE_MIN;
-                    return false;
-                }
-
-                lineItem =
-                    ItemLoader.GetItem(Player.inventory[index].type)
-                    as FishingLineBase;
-            }
-            else {
-                accessorySlot = index;
-
-                lineItem =
-                    ItemLoader.GetItem(Player.armor[index].type)
-                    as FishingLineBase;
-            }
-
-            minimumLures = lineItem.Lures;
-            return true;
+            return config.EnableCheatSheetIntegration 
+                || config.EnableHerosModIntegration 
+                || config.EnableHotkeys;
         }
     }
 }

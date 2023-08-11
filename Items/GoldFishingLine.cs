@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace MultiLure.Items {
     public class GoldFishingLine : FishingLineBase {
@@ -8,7 +9,7 @@ namespace MultiLure.Items {
         public override string AlternativeName => "PlatinumFishingLine";
         public override string OriginalType => Language.GetTextValue("MapObject.Gold");
         public override string AlternativeType => Language.GetTextValue("MapObject.Platinum");
-        public override int Lures => 25;
+        public override int Lures => ModContent.GetInstance<MultiLureConfig>().GoldFishingLineLures;
 
         public override void SetDefaults() {
             base.SetDefaults();

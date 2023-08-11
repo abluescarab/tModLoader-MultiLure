@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace MultiLure.Items {
     public class AdamantiteFishingLine : FishingLineBase {
@@ -8,7 +9,7 @@ namespace MultiLure.Items {
         public override string AlternativeName => "TitaniumFishingLine";
         public override string OriginalType => Language.GetTextValue("MapObject.Adamantite");
         public override string AlternativeType => Language.GetTextValue("MapObject.Titanium");
-        public override int Lures => 100;
+        public override int Lures => ModContent.GetInstance<MultiLureConfig>().AdamantiteFishingLineLures;
 
         public override void SetDefaults() {
             base.SetDefaults();

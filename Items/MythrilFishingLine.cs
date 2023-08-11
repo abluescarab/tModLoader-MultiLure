@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace MultiLure.Items {
     public class MythrilFishingLine : FishingLineBase {
@@ -8,7 +9,7 @@ namespace MultiLure.Items {
         public override string AlternativeName => "OrichalcumFishingLine";
         public override string OriginalType => Language.GetTextValue("MapObject.Mythril");
         public override string AlternativeType => Language.GetTextValue("MapObject.Orichalcum");
-        public override int Lures => 75;
+        public override int Lures => ModContent.GetInstance<MultiLureConfig>().MythrilFishingLineLures;
 
         public override void SetDefaults() {
             base.SetDefaults();

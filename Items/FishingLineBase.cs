@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -26,27 +27,18 @@ namespace MultiLure.Items {
             Item.accessory = true;
         }
 
-        public override bool CanEquipAccessory(Player player, int slot, bool modded) {
-            MultiLurePlayer mp = player.GetModPlayer<MultiLurePlayer>();
-            mp.HasLine(out int minimumLures, out int equippedSlot);
-
-            return slot == equippedSlot || minimumLures == MultiLurePlayer.LURE_MIN;
+        public override void ModifyTooltips(List<TooltipLine> tooltips) {
+            base.ModifyTooltips(tooltips);
+            var tooltip = tooltips.Find(t => t.Name == "Tooltip0");
+            tooltip.Text = Tooltip.Value;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual) {
-            MultiLurePlayer mp = player.GetModPlayer<MultiLurePlayer>();
-
-            if(mp.LureMinimum < Lures) {
-                mp.LureMinimum = Lures;
-            }
+            UpdateItem(player);
         }
 
         public override void UpdateInventory(Player player) {
-            MultiLurePlayer mp = player.GetModPlayer<MultiLurePlayer>();
-
-            if(mp.LureMinimum < Lures) {
-                mp.LureMinimum = Lures;
-            }
+            UpdateItem(player);
         }
 
         public void AddRecipes(string barGroup) {
@@ -56,6 +48,14 @@ namespace MultiLure.Items {
             rcp.AddRecipeGroup(barGroup, 5);
             rcp.AddTile(TileID.Anvils);
             rcp.Register();
+        }
+
+        protected void UpdateItem(Player player) {
+            MultiLurePlayer mp = player.GetModPlayer<MultiLurePlayer>();
+
+            if(mp.LureMinimum < Lures) {
+                mp.LureMinimum = Lures;
+            }
         }
     }
 }

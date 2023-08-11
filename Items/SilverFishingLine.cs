@@ -1,6 +1,8 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 
 namespace MultiLure.Items {
     public class SilverFishingLine : FishingLineBase {
@@ -8,7 +10,7 @@ namespace MultiLure.Items {
         public override string AlternativeName => "TungstenFishingLine";
         public override string OriginalType => Language.GetTextValue("MapObject.Silver");
         public override string AlternativeType => Language.GetTextValue("MapObject.Tungsten");
-        public override int Lures => 10;
+        public override int Lures => ModContent.GetInstance<MultiLureConfig>().SilverFishingLineLures;
 
         public override void SetDefaults() {
             base.SetDefaults();
