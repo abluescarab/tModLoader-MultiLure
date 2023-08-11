@@ -1,12 +1,13 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 
 namespace MultiLure.Items {
     public class SilverFishingLine : FishingLineBase {
         public override string OriginalName => "SilverFishingLine";
         public override string AlternativeName => "TungstenFishingLine";
-        public override string OriginalDisplayName => "{$Mods.MultiLure.Items.SilverFishingLine}";
-        public override string AlternativeDisplayName => "{$Mods.MultiLure.Items.TungstenFishingLine}";
+        public override string OriginalType => Language.GetTextValue("MapObject.Silver");
+        public override string AlternativeType => Language.GetTextValue("MapObject.Tungsten");
         public override int Lures => 10;
 
         public override void SetDefaults() {

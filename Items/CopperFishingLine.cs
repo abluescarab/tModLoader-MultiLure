@@ -7,7 +7,7 @@ namespace MultiLure.Items {
         public override string AlternativeName => "TinFishingLine";
         public override string OriginalDisplayName => "{$Mods.MultiLure.Items.CopperFishingLine}";
         public override string AlternativeDisplayName => "{$Mods.MultiLure.Items.TinFishingLine}";
-        public override int Lures => 0;
+        public override int Lures => 1;
 
         protected override ReplacementItem[] Replacements => new ReplacementItem[] {
             new(ItemID.CopperBar, 5),

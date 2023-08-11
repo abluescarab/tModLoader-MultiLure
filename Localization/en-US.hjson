@@ -1,7 +1,6 @@
-﻿Mods: {
+Mods: {
 	MultiLure: {
 		DeprecatedMessage: "{0} has been removed from MultiLure. Right-click to receive {1}."
-		FishingLine_Tooltip: Adds an extra {0} fishing lures
 		AddLure_Hotkey: Add Lure
 		RemoveLure_Hotkey: Remove Lure
 		LuresIncreased: Lures increased to {0}.
@@ -10,26 +9,31 @@
 		LuresMaximum: You already have the maximum number of lures ({0}).
 
 		Items: {
-			CopperFishingLine: Copper Fishing Line
-			TinFishingLine: Tin Fishing Line
+			FishingLine: {
+				DisplayName: "{0} Fishing Line"
+				Tooltip: Adds an extra {0} fishing lures
+			}
+		}
 
-			IronFishingLine: Iron Fishing Line
-			LeadFishingLine: Lead Fishing Line
+		Configs: {
+			MultiLureConfig: {
+				DisplayName: Multi Lure Options
 
-			SilverFishingLine: Silver Fishing Line
-			TungstenFishingLine: Tungsten Fishing Line
+				EnableHotkeys: {
+					Label: Enable hotkeys
+					Tooltip: ""
+				}
 
-			GoldFishingLine: Gold Fishing Line
-			PlatinumFishingLine: Platinum Fishing Line
+				EnableCheatSheetIntegration: {
+					Label: Enable Cheat Sheet integration
+					Tooltip: ""
+				}
 
-			MythrilFishingLine: Mythril Fishing Line
-			OrichalcumFishingLine: Orichalcum Fishing Line
-
-			CobaltFishingLine: Cobalt Fishing Line
-			PalladiumFishingLine: Palladium Fishing Line
-
-			AdamantiteFishingLine: Adamantite Fishing Line
-			TitaniumFishingLine: Titanium Fishing Line
+				EnableHerosModIntegration: {
+					Label: Enable HERO's Mod integration
+					Tooltip: ""
+				}
+			}
 		}
 	}
 }

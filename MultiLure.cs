@@ -3,6 +3,8 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 
+// TODO: reset lures if hotkeys/integrations off and item deleted
+
 namespace MultiLure {
     public class MultiLure : Mod {
         private const string AddLureTexture = "MultiLure/Textures/AddLure";

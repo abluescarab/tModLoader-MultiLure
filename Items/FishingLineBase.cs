@@ -7,21 +7,20 @@ namespace MultiLure.Items {
     public abstract class FishingLineBase : ModItem {
         public abstract string OriginalName { get; }
         public abstract string AlternativeName { get; }
-        public abstract string OriginalDisplayName { get; }
-        public abstract string AlternativeDisplayName { get; }
+        public abstract string OriginalType { get; }
+        public abstract string AlternativeType { get; }
         public abstract int Lures { get; }
 
-        public override void SetStaticDefaults() {
-            if(Name == OriginalName)
-                DisplayName.SetDefault(OriginalDisplayName);
-            else if(Name == AlternativeName)
-                DisplayName.SetDefault(AlternativeDisplayName);
+        public override LocalizedText DisplayName 
+            => Name == OriginalName 
+                ? Language.GetOrRegister(Mod.GetLocalizationKey("Items.FishingLine.DisplayName"))
+                            .WithFormatArgs(OriginalType) 
+                : Language.GetOrRegister(Mod.GetLocalizationKey("Items.FishingLine.DisplayName"))
+                            .WithFormatArgs(AlternativeType);
 
-            Tooltip.SetDefault(
-                Language.GetTextValue(
-                    "Mods.MultiLure.FishingLine_Tooltip", 
-                    Lures - 1));
-        }
+        public override LocalizedText Tooltip 
+            => Language.GetOrRegister(Mod.GetLocalizationKey("Items.FishingLine.Tooltip"))
+                            .WithFormatArgs(Lures - 1);
 
         public override void SetDefaults() {
             Item.accessory = true;
