@@ -7,7 +7,7 @@
 * Press [ to remove a lure
 * Press ] to add a lure
 * Hold shift to add/remove 10 lures (works with both hotkeys and Cheat Sheet/HERO's Mod)
-* Craft fishing lines using a [String](https://terraria.fandom.com/wiki/Strings), a [Hook](https://terraria.fandom.com/wiki/Hook), and 5 metal bars when "Enable fishing lines" is on
+* Craft fishing lines using a [String](https://terraria.wiki.gg/wiki/Strings), a [Hook](https://terraria.wiki.gg/wiki/Hook), and 5 metal bars when "Enable fishing lines" is on
 
 Each accessory offers:
 | Fishing Line        | Total Lures |
